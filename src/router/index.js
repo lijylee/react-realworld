@@ -1,5 +1,5 @@
 import React from 'react';
-import App from '../App';
+import { Navigate } from 'react-router-dom';
 import Home from '../pages/home';
 import Article from '../pages/article';
 import Editor from '../pages/editor';
@@ -10,36 +10,34 @@ import Settings from '../pages/settings';
 const routes = [
   {
     path: '/',
-    element: <App />,
-    children: [
-      {
-        path: '',
-        element: <Home />
-      },
-      {
-        path: 'article',
-        element: <Article />
-      },
-      {
-        path: 'editor',
-        element: <Editor />
-      },
-      {
-        path: 'login',
-        element: <Login />
-      },
-      {
-        path: 'register',
-        element: <Register />
-      },
-      {
-        path: 'profile',
-        element: <Profile />
-      }, {
-        path: 'settings',
-        element: <Settings />
-      }
-    ]
+    element: <Navigate to='/home' />
+  },
+  {
+    path: 'home',
+    element: <Home />
+  },
+  {
+    path: 'article',
+    element: <Article />
+  },
+  {
+    path: 'editor',
+    element: <Editor />
+  },
+  {
+    path: 'login',
+    element: <Login />
+  },
+  {
+    path: 'register',
+    element: <Register />
+  },
+  {
+    path: 'profile',
+    element: <Profile />
+  }, {
+    path: 'settings',
+    element: <Settings />
   }
 ];
 
