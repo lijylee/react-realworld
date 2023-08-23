@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
-import Home from '../pages/home';
-import Article from '../pages/article';
-import Editor from '../pages/editor';
 import Login from '../pages/login';
-import Register from '../pages/register';
-import Profile from '../pages/profile';
-import Settings from '../pages/settings';
+import Home from '../pages/home';
+const Article = lazy(() => import('../pages/article'));
+const Editor = lazy(() => import('../pages/editor'));
+const Register = lazy(() => import('../pages/register'));
+const Profile = lazy(() => import('../pages/profile'));
+const Settings = lazy(() => import('../pages/settings'));
+
 const routes = [
   {
     path: '/',
