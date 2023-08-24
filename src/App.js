@@ -1,16 +1,16 @@
 import { Suspense } from 'react';
-import { useRoutes } from 'react-router-dom';
 import './App.css';
 import Layout from './components/Layout';
-import routes from './router';
+import RouterBeforeEach from './hoc/RouterBeforeEach';
 
 function App() {
   return (
     <div className="App">
       <Suspense fallback={<h1>loading</h1>} >
-        <Layout />
+        <RouterBeforeEach>
+          <Layout />
+        </RouterBeforeEach>
       </Suspense>
-      {useRoutes(routes)}
     </div>
   );
 }
