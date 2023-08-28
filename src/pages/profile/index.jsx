@@ -1,21 +1,23 @@
 import React, { memo } from 'react';
+import { useSelector } from 'react-redux';
 
 const Profile = memo(() => {
+  const user = useSelector(state => state.user.value);
+  console.log('==== profile', user);
   return (
     <div className="profile-page">
       <div className="user-info">
         <div className="container">
           <div className="row">
             <div className="col-xs-12 col-md-10 offset-md-1">
-              <img src="http://i.imgur.com/Qr71crq.jpg" className="user-img" />
-              <h4>Eric Simons</h4>
+              <img src={user.image} className="user-img" />
+              <h4>{user.username}</h4>
               <p>
-                Cofounder @GoThinkster, lived in Aol's HQ for a few months, kinda looks like Peeta from
-                the Hunger Games
+                {user.bio}
               </p>
               <button className="btn btn-sm btn-outline-secondary action-btn">
                 <i className="ion-plus-round"></i>
-                &nbsp; Follow Eric Simons
+                &nbsp; Follow {user.username}
               </button>
               <button className="btn btn-sm btn-outline-secondary action-btn">
                 <i className="ion-gear-a"></i>

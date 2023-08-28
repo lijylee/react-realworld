@@ -6,7 +6,6 @@ const RouterBeforeEach = memo(({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const user = useSelector(state => state.user.value);
-  console.log('userStore====', user);
   useEffect(() => {
     const isLogin = !!user;
     if (location.pathname !== '/login' && location.pathname !== '/register' && !isLogin) {

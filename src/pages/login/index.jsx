@@ -1,7 +1,7 @@
 import React, { memo, useState } from 'react';
 import { login } from '../../api/user';
 import { saveUserToStorage } from '@/utils/storage';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUser } from '@/store/user/userSlice';
 
@@ -44,7 +44,7 @@ const Login = memo(() => {
           <div className="col-md-6 offset-md-3 col-xs-12">
             <h1 className="text-xs-center">Sign in</h1>
             <p className="text-xs-center">
-              <a href="/register">Need an account?</a>
+              <Link to="/register">Need an account?</Link>
             </p>
 
             {
