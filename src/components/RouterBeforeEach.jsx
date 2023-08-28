@@ -8,7 +8,11 @@ const RouterBeforeEach = memo(({ children }) => {
   const user = useSelector(state => state.user.value);
   useEffect(() => {
     const isLogin = !!user;
-    if (location.pathname !== '/login' && location.pathname !== '/register' && !isLogin) {
+    if (
+      location.pathname !== '/login'
+      && location.pathname !== '/register'
+      && location.pathname !== '/home'
+      && !isLogin) {
       navigate('/login?from=' + location.pathname);
     }
   }, [location.pathname, navigate]);

@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import './App.css';
 import Layout from './components/Layout';
-import RouterBeforeEach from './hoc/RouterBeforeEach';
+import RouterBeforeEach from './components/RouterBeforeEach';
 
 function App() {
   return (
