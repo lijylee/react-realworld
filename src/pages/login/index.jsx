@@ -2,6 +2,8 @@ import React, { memo, useState } from 'react';
 import { login } from '../../api/user';
 import { saveUserToStorage } from '@/utils/storage';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUser } from '@/store/user/userSlice';
 
 const Login = memo(() => {
   const [email, setEmail] = useState('');
@@ -10,14 +12,15 @@ const Login = memo(() => {
   const navigator = useNavigate();
   const [searchParams] = useSearchParams();
   const from = searchParams.get('from');
+  const dispatch = useDispatch();
   const submit = async e => {
     e.preventDefault();
     try {
       const { data } = await login({ email, password });
       const user = data.user;
+      dispatch(setUser(user));
       saveUserToStorage(user);
-      navigator(from);
-
+      navigator(from || '/home');
     } catch (error) {
       setErrors(error.response.data.errors);
     }
