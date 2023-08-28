@@ -1,13 +1,15 @@
-import React, { memo, useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { getUserFromStorage } from '@/utils/storage';
 
 const RouterBeforeEach = memo(({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
   useEffect(() => {
-    const isLogin = false;
+    const user = getUserFromStorage();
+    const isLogin = !!user;
     if (location.pathname !== '/login' && location.pathname !== '/register' && !isLogin) {
-      navigate('/login');
+      navigate('/login?from=' + location.pathname);
     }
   }, [location.pathname, navigate]);
 

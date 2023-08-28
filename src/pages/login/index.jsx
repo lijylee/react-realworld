@@ -1,6 +1,39 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
+import { login } from '../../api/user';
+import { saveUserToStorage } from '@/utils/storage';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const Login = memo(() => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState([]);
+  const navigator = useNavigate();
+  const [searchParams] = useSearchParams();
+  const from = searchParams.get('from');
+  const submit = async e => {
+    e.preventDefault();
+    try {
+      const { data } = await login({ email, password });
+      const user = data.user;
+      saveUserToStorage(user);
+      navigator(from);
+
+    } catch (error) {
+      setErrors(error.response.data.errors);
+    }
+  };
+  const handleErrors = errors => {
+    const errorLiAry = [];
+    for (const key in errors) {
+      if (Object.hasOwnProperty.call(errors, key)) {
+        const errorAry = errors[key];
+        for (const error of errorAry) {
+          errorLiAry.push(<li key={error}>{key + ':' + error}</li>);
+        }
+      }
+    }
+    return errorLiAry;
+  };
   return (
     <div className="auth-page">
       <div className="container page">
@@ -11,18 +44,36 @@ const Login = memo(() => {
               <a href="/register">Need an account?</a>
             </p>
 
-            <ul className="error-messages">
-              <li>That email is already taken</li>
-            </ul>
+            {
+              errors && <ul className="error-messages">
+                {handleErrors(errors)}
+              </ul>
+            }
 
             <form>
               <fieldset className="form-group">
-                <input className="form-control form-control-lg" type="text" placeholder="Email" />
+                <input
+                  className="form-control form-control-lg"
+                  type="text"
+                  placeholder="Email"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                />
               </fieldset>
               <fieldset className="form-group">
-                <input className="form-control form-control-lg" type="password" placeholder="Password" />
+                <input
+                  className="form-control form-control-lg"
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                />
               </fieldset>
-              <button className="btn btn-lg btn-primary pull-xs-right">Sign in</button>
+              <button
+                type='button'
+                className="btn btn-lg btn-primary pull-xs-right"
+                onClick={e => submit(e)}
+              >Sign in</button>
             </form>
           </div>
         </div>

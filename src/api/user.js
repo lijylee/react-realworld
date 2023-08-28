@@ -1,4 +1,4 @@
-import request from '@/utils/request';
+import request from '@/utils/request.js';
 
 const login = user => {
   return request.post('/users/login', {
