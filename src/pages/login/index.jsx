@@ -5,6 +5,8 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUser } from '@/store/user/userSlice';
 
+import { handleErrors } from '@/utils/util';
+
 const Login = memo(() => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -14,7 +16,6 @@ const Login = memo(() => {
   const from = searchParams.get('from');
   const dispatch = useDispatch();
   const submit = async e => {
-    e.preventDefault();
     try {
       const { data } = await login({ email, password });
       const user = data.user;
@@ -24,18 +25,6 @@ const Login = memo(() => {
     } catch (error) {
       setErrors(error.response.data.errors);
     }
-  };
-  const handleErrors = errors => {
-    const errorLiAry = [];
-    for (const key in errors) {
-      if (Object.hasOwnProperty.call(errors, key)) {
-        const errorAry = errors[key];
-        for (const error of errorAry) {
-          errorLiAry.push(<li key={error}>{key + ':' + error}</li>);
-        }
-      }
-    }
-    return errorLiAry;
   };
   return (
     <div className="auth-page">
