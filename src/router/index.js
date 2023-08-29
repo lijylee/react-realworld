@@ -39,7 +39,7 @@ const routes = [
         element: <Register />
       },
       {
-        path: 'profile',
+        path: 'profile/:username?',
         element: <Profile />
       }, {
         path: 'settings',

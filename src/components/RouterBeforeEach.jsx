@@ -4,8 +4,9 @@ import { useSelector } from 'react-redux';
 
 const RouterBeforeEach = memo(({ children }) => {
   const location = useLocation();
-  const navigate = useNavigate();
+  const navigator = useNavigate();
   const user = useSelector(state => state.user.value);
+
   useEffect(() => {
     const isLogin = !!user;
     if (
@@ -13,12 +14,11 @@ const RouterBeforeEach = memo(({ children }) => {
       && location.pathname !== '/register'
       && location.pathname !== '/home'
       && !isLogin) {
-      navigate('/login?from=' + location.pathname);
+      navigator('/login?from=' + location.pathname);
     }
-  }, [location.pathname, navigate]);
+  }, [location.pathname, navigator]);
 
   return children;
-
 });
 
 export default RouterBeforeEach;
