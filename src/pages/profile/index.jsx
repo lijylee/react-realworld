@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { getProfile } from '@/api/profile.js';
 import { getArticles } from '@/api/article.js';
 import { dateFormat } from '@/utils/format.js';
+import { Link } from 'react-router-dom';
 
 const Profile = memo(() => {
   // const user = useSelector(state => state.user.value);
@@ -11,9 +12,16 @@ const Profile = memo(() => {
   const { username } = params;
   const [user, setUser] = useState({});
   const [articles, setArticles] = useState([]);
+  const [isMe, setIsMe] = useState(false);
 
-  const isMe = user && user.username === username;
+  // const isMe = user && user.username === username;
   // console.log({ isMe });
+
+  useEffect(() => {
+    if (user) {
+      setIsMe(user.username === username);
+    }
+  }, [user, username]);
 
   // 获取Profile
   useEffect(() => {
@@ -47,12 +55,8 @@ const Profile = memo(() => {
                 {user.bio}
               </p>
               <button className="btn btn-sm btn-outline-secondary action-btn">
-                <i className="ion-plus-round"></i>
-                &nbsp; Follow {user.username}
-              </button>
-              <button className="btn btn-sm btn-outline-secondary action-btn">
-                <i className="ion-gear-a"></i>
-                &nbsp; Edit Profile Settings
+                <i className={isMe ? "ion-gear-a" : "ion-plus-round"}></i>
+                &nbsp; {isMe ? 'Edit Profile Settings' : 'Follow' + user.username}
               </button>
             </div>
           </div>
@@ -78,9 +82,9 @@ const Profile = memo(() => {
                 return (
                   <div className="article-preview" key={article.slug}>
                     <div className="article-meta">
-                      <a href="/profile/eric-simons"><img src={article.author.image} /></a>
+                      <Link to={`/profile/${article.author.username}`}><img src={article.author.image} /></Link>
                       <div className="info">
-                        <a href="/profile/eric-simons" className="author">{article.author.username}</a>
+                        <Link to={`/profile/${article.author.username}`} className="author">{article.author.username}</Link>
                         <span className="date">{dateFormat(article.createdAt)}</span>
                       </div>
                       <button className="btn btn-outline-primary btn-sm pull-xs-right">
