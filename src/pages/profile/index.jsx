@@ -1,9 +1,40 @@
-import React, { memo } from 'react';
-import { useSelector } from 'react-redux';
+import React, { memo, useEffect, useState } from 'react';
+// import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { getProfile } from '@/api/profile.js';
+import { getArticles } from '@/api/article.js';
+import { dateFormat } from '@/utils/format.js';
 
 const Profile = memo(() => {
-  const user = useSelector(state => state.user.value);
-  console.log('==== profile', user);
+  // const user = useSelector(state => state.user.value);
+  const params = useParams();
+  const { username } = params;
+  const [user, setUser] = useState({});
+  const [articles, setArticles] = useState([]);
+
+  const isMe = user && user.username === username;
+  // console.log({ isMe });
+
+  // 获取Profile
+  useEffect(() => {
+    getProfile(username).then(({ data }) => {
+      setUser(data.profile);
+    });
+  }, [username]);
+
+  // 获取articles
+  useEffect(() => {
+    try {
+      getArticles({ author: username }).then(({ data }) => {
+        console.log(data.articles);
+        setArticles(data.articles);
+      });
+
+    } catch (error) {
+      console.log(error);
+    }
+  }, [username]);
+
   return (
     <div className="profile-page">
       <div className="user-info">
@@ -42,49 +73,33 @@ const Profile = memo(() => {
               </ul>
             </div>
 
-            <div className="article-preview">
-              <div className="article-meta">
-                <a href="/profile/eric-simons"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
-                <div className="info">
-                  <a href="/profile/eric-simons" className="author">Eric Simons</a>
-                  <span className="date">January 20th</span>
-                </div>
-                <button className="btn btn-outline-primary btn-sm pull-xs-right">
-                  <i className="ion-heart"></i> 29
-                </button>
-              </div>
-              <a href="/article/how-to-buil-webapps-that-scale" className="preview-link">
-                <h1>How to build webapps that scale</h1>
-                <p>This is the description for the post.</p>
-                <span>Read more...</span>
-                <ul className="tag-list">
-                  <li className="tag-default tag-pill tag-outline">realworld</li>
-                  <li className="tag-default tag-pill tag-outline">implementations</li>
-                </ul>
-              </a>
-            </div>
-
-            <div className="article-preview">
-              <div className="article-meta">
-                <a href="/profile/albert-pai"><img src="http://i.imgur.com/N4VcUeJ.jpg" /></a>
-                <div className="info">
-                  <a href="/profile/albert-pai" className="author">Albert Pai</a>
-                  <span className="date">January 20th</span>
-                </div>
-                <button className="btn btn-outline-primary btn-sm pull-xs-right">
-                  <i className="ion-heart"></i> 32
-                </button>
-              </div>
-              <a href="/article/the-song-you" className="preview-link">
-                <h1>The song you won't ever stop singing. No matter how hard you try.</h1>
-                <p>This is the description for the post.</p>
-                <span>Read more...</span>
-                <ul className="tag-list">
-                  <li className="tag-default tag-pill tag-outline">Music</li>
-                  <li className="tag-default tag-pill tag-outline">Song</li>
-                </ul>
-              </a>
-            </div>
+            {
+              articles.map(article => {
+                return (
+                  <div className="article-preview" key={article.slug}>
+                    <div className="article-meta">
+                      <a href="/profile/eric-simons"><img src={article.author.image} /></a>
+                      <div className="info">
+                        <a href="/profile/eric-simons" className="author">{article.author.username}</a>
+                        <span className="date">{dateFormat(article.createdAt)}</span>
+                      </div>
+                      <button className="btn btn-outline-primary btn-sm pull-xs-right">
+                        <i className="ion-heart"></i> 29
+                      </button>
+                    </div>
+                    <a href="/article/how-to-buil-webapps-that-scale" className="preview-link">
+                      <h1>{article.title}</h1>
+                      <p>{article.description}</p>
+                      <span>Read more...</span>
+                      <ul className="tag-list">
+                        <li className="tag-default tag-pill tag-outline">realworld</li>
+                        <li className="tag-default tag-pill tag-outline">implementations</li>
+                      </ul>
+                    </a>
+                  </div>
+                );
+              })
+            }
 
             <ul className="pagination">
               <li className="page-item active">

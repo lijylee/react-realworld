@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getUserFromStorage } from '@/utils/storage.js';
+import store from '@/store/index.js';
 
 const instance = axios.create({
   baseURL: 'https://api.realworld.io/api',
@@ -7,8 +7,8 @@ const instance = axios.create({
 
 // 添加请求拦截器
 instance.interceptors.request.use(function (config) {
+  const user = store.getState().user.value;
   // 在发送请求之前做些什么
-  const user = getUserFromStorage();
   if (user) { config.headers.Authorization = 'Token ' + user.token; }
   return config;
 }, function (error) {
