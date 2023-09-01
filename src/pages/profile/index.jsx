@@ -1,5 +1,4 @@
 import React, { memo, useEffect, useState } from 'react';
-// import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getProfile } from '@/api/profile.js';
 import { getArticles } from '@/api/article.js';
@@ -7,6 +6,8 @@ import { dateFormat } from '@/utils/format.js';
 import { Link } from 'react-router-dom';
 import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { followUser, unFollowUser } from '@/api/profile.js';
+import { useSelector } from 'react-redux';
 
 const Profile = memo(() => {
   const params = useParams();
@@ -16,20 +17,22 @@ const Profile = memo(() => {
   const [user, setUser] = useState({});
   const [articles, setArticles] = useState([]);
   const [isMe, setIsMe] = useState(false);
+  const [following, setFollowing] = useState(false);
   const navigator = useNavigate();
-
-  useEffect(() => {
-    if (user) {
-      setIsMe(user.username === username);
-    }
-  }, [user, username]);
+  const userStore = useSelector(state => state.user.value);
 
   // 获取Profile
   useEffect(() => {
     getProfile(username).then(({ data }) => {
-      setUser(data.profile);
+      const { profile } = data;
+      setUser(profile);
+      setFollowing(profile.following);
     });
   }, [username]);
+
+  useEffect(() => {
+    setIsMe(userStore.username === username);
+  }, [user, username]);
 
   // 获取articles
   useEffect(() => {
@@ -48,10 +51,20 @@ const Profile = memo(() => {
     }
   }, [username, tab]);
 
-  function handleEditFollow() {
+  async function handleEditFollow() {
     if (isMe) {
-      navigator('/settings');
+      return navigator('/settings');
     }
+    if (following) {
+      await unFollowUser(username);
+      setFollowing(false);
+      return;
+    }
+
+    await followUser(username);
+    setFollowing(true);
+    return;
+
   }
 
   return (
@@ -67,7 +80,7 @@ const Profile = memo(() => {
               </p>
               <button className="btn btn-sm btn-outline-secondary action-btn" onClick={handleEditFollow}>
                 <i className={isMe ? "ion-gear-a" : "ion-plus-round"}></i>
-                &nbsp; {isMe ? 'Edit Profile Settings' : 'Follow' + user.username}
+                &nbsp; {isMe ? 'Edit Profile Settings' : ((following ? 'unFollow' : 'Follow') + username)}
               </button>
             </div>
           </div>
