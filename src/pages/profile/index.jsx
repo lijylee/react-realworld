@@ -5,17 +5,18 @@ import { getProfile } from '@/api/profile.js';
 import { getArticles } from '@/api/article.js';
 import { dateFormat } from '@/utils/format.js';
 import { Link } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = memo(() => {
-  // const user = useSelector(state => state.user.value);
   const params = useParams();
   const { username } = params;
+  const [searchParams, setSearchParams] = useSearchParams();
+  const tab = searchParams.get('tab') || 'my';
   const [user, setUser] = useState({});
   const [articles, setArticles] = useState([]);
   const [isMe, setIsMe] = useState(false);
-
-  // const isMe = user && user.username === username;
-  // console.log({ isMe });
+  const navigator = useNavigate();
 
   useEffect(() => {
     if (user) {
@@ -33,15 +34,25 @@ const Profile = memo(() => {
   // 获取articles
   useEffect(() => {
     try {
-      getArticles({ author: username }).then(({ data }) => {
-        console.log(data.articles);
-        setArticles(data.articles);
-      });
-
+      if (tab === 'my') {
+        getArticles({ author: username }).then(({ data }) => {
+          setArticles(data.articles);
+        });
+      } else {
+        getArticles({ favorited: username }).then(({ data }) => {
+          setArticles(data.articles);
+        });
+      }
     } catch (error) {
       console.log(error);
     }
-  }, [username]);
+  }, [username, tab]);
+
+  function handleEditFollow() {
+    if (isMe) {
+      navigator('/settings');
+    }
+  }
 
   return (
     <div className="profile-page">
@@ -54,7 +65,7 @@ const Profile = memo(() => {
               <p>
                 {user.bio}
               </p>
-              <button className="btn btn-sm btn-outline-secondary action-btn">
+              <button className="btn btn-sm btn-outline-secondary action-btn" onClick={handleEditFollow}>
                 <i className={isMe ? "ion-gear-a" : "ion-plus-round"}></i>
                 &nbsp; {isMe ? 'Edit Profile Settings' : 'Follow' + user.username}
               </button>
@@ -69,10 +80,10 @@ const Profile = memo(() => {
             <div className="articles-toggle">
               <ul className="nav nav-pills outline-active">
                 <li className="nav-item">
-                  <a className="nav-link active" href="">My Articles</a>
+                  <Link className={"nav-link" + (tab === 'my' ? ' active' : '')} to={`/profile/${user.username}?tab=my`}>My Articles</Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="">Favorited Articles</a>
+                  <Link className={"nav-link" + (tab === 'favorited' ? ' active' : '')} to={`/profile/${user.username}?tab=favorited`}>Favorited Articles</Link>
                 </li>
               </ul>
             </div>

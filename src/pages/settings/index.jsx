@@ -9,11 +9,11 @@ const Settings = memo(() => {
   const navigator = useNavigate();
   const dispatch = useDispatch();
   const userStore = useSelector(state => state.user.value);
-  const [image, setImage] = useState(userStore?.payload.image);
-  const [username, setUsername] = useState(userStore?.payload.username);
-  const [bio, setBio] = useState(userStore?.payload.bio);
-  const [email, setEmail] = useState(userStore?.payload.email);
-  const [password, setPassword] = useState(userStore?.payload.password);
+  const [image, setImage] = useState(userStore?.image);
+  const [username, setUsername] = useState(userStore?.username);
+  const [bio, setBio] = useState(userStore?.bio);
+  const [email, setEmail] = useState(userStore?.email);
+  const [password, setPassword] = useState(userStore?.password);
 
   const updateSettings = async () => {
     const editedUser = { image, username, bio, email, password };
