@@ -1,4 +1,4 @@
-import request from '@/utils/request.js';
+import request from "@/utils/request.js";
 
 export function getComments(slug) {
   return request.get(`/articles/${slug}/comments`);
@@ -7,8 +7,8 @@ export function getComments(slug) {
 export function createComment(slug, commentBody) {
   return request.post(`/articles/${slug}/comments`, {
     comment: {
-      body: commentBody
-    }
+      body: commentBody,
+    },
   });
 }
 

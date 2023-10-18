@@ -1,16 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { getUserFromStorage } from '@/utils/storage.js';
+import { createSlice } from "@reduxjs/toolkit";
+import { getUserFromStorage } from "@/utils/storage.js";
 
 export const userSlice = createSlice({
-  name: 'counter',
+  name: "counter",
   initialState: {
-    value: getUserFromStorage() || null
+    value: getUserFromStorage() || null,
   },
   reducers: {
     setUser: (state, action) => {
       state.value = action.payload;
-    }
-  }
+    },
+  },
 });
 
 // Action creators are generated for each case reducer function

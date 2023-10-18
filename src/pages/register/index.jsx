@@ -1,18 +1,18 @@
-import React, { memo, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { handleErrors } from '@/utils/util';
-import { register } from '@/api/user';
+import React, { memo, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { handleErrors } from "@/utils/util";
+import { register } from "@/api/user";
 
 const Register = memo(() => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const navigator = useNavigate();
-  const submit = async e => {
+  const submit = async (e) => {
     try {
       await register({ username, email, password });
-      navigator('/login');
+      navigator("/login");
     } catch (error) {
       setErrors(error.response.data.errors);
     }
@@ -27,11 +27,9 @@ const Register = memo(() => {
               <Link to="/login">Have an account?</Link>
             </p>
 
-            {
-              errors && <ul className="error-messages">
-                {handleErrors(errors)}
-              </ul>
-            }
+            {errors && (
+              <ul className="error-messages">{handleErrors(errors)}</ul>
+            )}
 
             <form>
               <fieldset className="form-group">
@@ -40,7 +38,7 @@ const Register = memo(() => {
                   type="text"
                   placeholder="Username"
                   value={username}
-                  onChange={e => setUsername(e.target.value)}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </fieldset>
               <fieldset className="form-group">
@@ -49,7 +47,7 @@ const Register = memo(() => {
                   type="text"
                   placeholder="Email"
                   value={email}
-                  onChange={e => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </fieldset>
               <fieldset className="form-group">
@@ -58,7 +56,7 @@ const Register = memo(() => {
                   type="password"
                   placeholder="Password"
                   value={password}
-                  onChange={e => setPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </fieldset>
               <button

@@ -1,27 +1,27 @@
-import React, { memo, useState } from 'react';
-import { login } from '../../api/user';
-import { saveUserToStorage } from '@/utils/storage';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setUser } from '@/store/user/userSlice';
+import React, { memo, useState } from "react";
+import { login } from "../../api/user";
+import { saveUserToStorage } from "@/utils/storage";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/store/user/userSlice";
 
-import { handleErrors } from '@/utils/util';
+import { handleErrors } from "@/utils/util";
 
 const Login = memo(() => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const navigator = useNavigate();
   const [searchParams] = useSearchParams();
-  const from = searchParams.get('from');
+  const from = searchParams.get("from");
   const dispatch = useDispatch();
-  const submit = async e => {
+  const submit = async (e) => {
     try {
       const { data } = await login({ email, password });
       const user = data.user;
       dispatch(setUser(user));
       saveUserToStorage(user);
-      navigator(from || '/home');
+      navigator(from || "/home");
     } catch (error) {
       setErrors(error.response.data.errors);
     }
@@ -36,11 +36,9 @@ const Login = memo(() => {
               <Link to="/register">Need an account?</Link>
             </p>
 
-            {
-              errors && <ul className="error-messages">
-                {handleErrors(errors)}
-              </ul>
-            }
+            {errors && (
+              <ul className="error-messages">{handleErrors(errors)}</ul>
+            )}
 
             <form>
               <fieldset className="form-group">
@@ -49,7 +47,7 @@ const Login = memo(() => {
                   type="text"
                   placeholder="Email"
                   value={email}
-                  onChange={e => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </fieldset>
               <fieldset className="form-group">
@@ -58,14 +56,16 @@ const Login = memo(() => {
                   type="password"
                   placeholder="Password"
                   value={password}
-                  onChange={e => setPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </fieldset>
               <button
-                type='button'
+                type="button"
                 className="btn btn-lg btn-primary pull-xs-right"
-                onClick={e => submit(e)}
-              >Sign in</button>
+                onClick={(e) => submit(e)}
+              >
+                Sign in
+              </button>
             </form>
           </div>
         </div>

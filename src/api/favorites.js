@@ -1,4 +1,4 @@
-import request from '@/utils/request.js';
+import request from "@/utils/request.js";
 
 export function postFavorites(slug) {
   return request.post(`/articles/${slug}/favorite`);

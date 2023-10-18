@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo } from "react";
 
 const Article = memo(() => {
   return (
@@ -8,9 +8,13 @@ const Article = memo(() => {
           <h1>How to build webapps that scale</h1>
 
           <div className="article-meta">
-            <a href="/profile/eric-simons"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
+            <a href="/profile/eric-simons">
+              <img src="http://i.imgur.com/Qr71crq.jpg" />
+            </a>
             <div className="info">
-              <a href="/profile/eric-simons" className="author">Eric Simons</a>
+              <a href="/profile/eric-simons" className="author">
+                Eric Simons
+              </a>
               <span className="date">January 20th</span>
             </div>
             <button className="btn btn-sm btn-outline-secondary">
@@ -36,13 +40,16 @@ const Article = memo(() => {
         <div className="row article-content">
           <div className="col-md-12">
             <p>
-              Web development technologies have evolved at an incredible clip over the past few years.
+              Web development technologies have evolved at an incredible clip
+              over the past few years.
             </p>
             <h2 id="introducing-ionic">Introducing RealWorld.</h2>
             <p>It's a great solution for learning how other frameworks work.</p>
             <ul className="tag-list">
               <li className="tag-default tag-pill tag-outline">realworld</li>
-              <li className="tag-default tag-pill tag-outline">implementations</li>
+              <li className="tag-default tag-pill tag-outline">
+                implementations
+              </li>
             </ul>
           </div>
         </div>
@@ -51,12 +58,15 @@ const Article = memo(() => {
 
         <div className="article-actions">
           <div className="article-meta">
-            <a href="profile.html"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
+            <a href="profile.html">
+              <img src="http://i.imgur.com/Qr71crq.jpg" />
+            </a>
             <div className="info">
-              <a href="" className="author">Eric Simons</a>
+              <a href="" className="author">
+                Eric Simons
+              </a>
               <span className="date">January 20th</span>
             </div>
-
             <button className="btn btn-sm btn-outline-secondary">
               <i className="ion-plus-round"></i>
               &nbsp; Follow Eric Simons
@@ -79,10 +89,17 @@ const Article = memo(() => {
           <div className="col-xs-12 col-md-8 offset-md-2">
             <form className="card comment-form">
               <div className="card-block">
-                <textarea className="form-control" placeholder="Write a comment..." rows="3"></textarea>
+                <textarea
+                  className="form-control"
+                  placeholder="Write a comment..."
+                  rows="3"
+                ></textarea>
               </div>
               <div className="card-footer">
-                <img src="http://i.imgur.com/Qr71crq.jpg" className="comment-author-img" />
+                <img
+                  src="http://i.imgur.com/Qr71crq.jpg"
+                  className="comment-author-img"
+                />
                 <button className="btn btn-sm btn-primary">Post Comment</button>
               </div>
             </form>
@@ -90,15 +107,21 @@ const Article = memo(() => {
             <div className="card">
               <div className="card-block">
                 <p className="card-text">
-                  With supporting text below as a natural lead-in to additional content.
+                  With supporting text below as a natural lead-in to additional
+                  content.
                 </p>
               </div>
               <div className="card-footer">
                 <a href="/profile/author" className="comment-author">
-                  <img src="http://i.imgur.com/Qr71crq.jpg" className="comment-author-img" />
+                  <img
+                    src="http://i.imgur.com/Qr71crq.jpg"
+                    className="comment-author-img"
+                  />
                 </a>
                 &nbsp;
-                <a href="/profile/jacob-schmidt" className="comment-author">Jacob Schmidt</a>
+                <a href="/profile/jacob-schmidt" className="comment-author">
+                  Jacob Schmidt
+                </a>
                 <span className="date-posted">Dec 29th</span>
               </div>
             </div>
@@ -106,15 +129,21 @@ const Article = memo(() => {
             <div className="card">
               <div className="card-block">
                 <p className="card-text">
-                  With supporting text below as a natural lead-in to additional content.
+                  With supporting text below as a natural lead-in to additional
+                  content.
                 </p>
               </div>
               <div className="card-footer">
                 <a href="/profile/author" className="comment-author">
-                  <img src="http://i.imgur.com/Qr71crq.jpg" className="comment-author-img" />
+                  <img
+                    src="http://i.imgur.com/Qr71crq.jpg"
+                    className="comment-author-img"
+                  />
                 </a>
                 &nbsp;
-                <a href="/profile/jacob-schmidt" className="comment-author">Jacob Schmidt</a>
+                <a href="/profile/jacob-schmidt" className="comment-author">
+                  Jacob Schmidt
+                </a>
                 <span className="date-posted">Dec 29th</span>
                 <span className="mod-options">
                   <i className="ion-trash-a"></i>

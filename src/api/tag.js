@@ -1,5 +1,5 @@
-import request from '@/utils/request.js';
+import request from "@/utils/request.js";
 
 export function getTags() {
-  return request.get('/tags');
+  return request.get("/tags");
 }

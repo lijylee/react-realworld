@@ -1,14 +1,14 @@
-import React, { memo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateUser } from '@/api/user.js';
-import { saveUserToStorage, removeUserFromStorage } from '@/utils/storage.js';
-import { useNavigate } from 'react-router-dom';
-import { setUser } from '@/store/user/userSlice';
+import React, { memo, useState } from "react";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { updateUser } from "@/api/user.js";
+import { saveUserToStorage, removeUserFromStorage } from "@/utils/storage.js";
+import { useNavigate } from "react-router-dom";
+import { setUser } from "@/store/user/userSlice";
 
 const Settings = memo(() => {
   const navigator = useNavigate();
   const dispatch = useDispatch();
-  const userStore = useSelector(state => state.user.value);
+  const userStore = useSelector((state) => state.user.value, shallowEqual);
   const [image, setImage] = useState(userStore?.image);
   const [username, setUsername] = useState(userStore?.username);
   const [bio, setBio] = useState(userStore?.bio);
@@ -31,7 +31,7 @@ const Settings = memo(() => {
   const logout = () => {
     dispatch(setUser(null));
     removeUserFromStorage();
-    navigator('/login');
+    navigator("/login");
   };
 
   return (
@@ -53,7 +53,7 @@ const Settings = memo(() => {
                     type="text"
                     placeholder="URL of profile picture"
                     value={image}
-                    onChange={e => setImage(e.target.value)}
+                    onChange={(e) => setImage(e.target.value)}
                   />
                 </fieldset>
                 <fieldset className="form-group">
@@ -62,7 +62,7 @@ const Settings = memo(() => {
                     type="text"
                     placeholder="Your Name"
                     value={username}
-                    onChange={e => setUsername(e.target.value)}
+                    onChange={(e) => setUsername(e.target.value)}
                   />
                 </fieldset>
                 <fieldset className="form-group">
@@ -71,7 +71,7 @@ const Settings = memo(() => {
                     rows="8"
                     placeholder="Short bio about you"
                     value={bio}
-                    onChange={e => setBio(e.target.value)}
+                    onChange={(e) => setBio(e.target.value)}
                   ></textarea>
                 </fieldset>
                 <fieldset className="form-group">
@@ -80,7 +80,7 @@ const Settings = memo(() => {
                     type="text"
                     placeholder="Email"
                     value={email}
-                    onChange={e => setEmail(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </fieldset>
                 <fieldset className="form-group">
@@ -89,22 +89,26 @@ const Settings = memo(() => {
                     type="password"
                     placeholder="New Password"
                     value={password}
-                    onChange={e => setPassword(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </fieldset>
                 <button
                   className="btn btn-lg btn-primary pull-xs-right"
-                  onClick={e => updateSettings()}
+                  onClick={(e) => updateSettings()}
                   type="button"
-                >Update Settings</button>
+                >
+                  Update Settings
+                </button>
               </fieldset>
             </form>
             <hr />
             <button
               className="btn btn-outline-danger"
-              onClick={e => logout()}
+              onClick={(e) => logout()}
               type="button"
-            >Or click here to logout.</button>
+            >
+              Or click here to logout.
+            </button>
           </div>
         </div>
       </div>

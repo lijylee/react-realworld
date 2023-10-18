@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo } from "react";
 
 const Editor = memo(() => {
   return (
@@ -13,10 +13,18 @@ const Editor = memo(() => {
             <form>
               <fieldset>
                 <fieldset className="form-group">
-                  <input type="text" className="form-control form-control-lg" placeholder="Article Title" />
+                  <input
+                    type="text"
+                    className="form-control form-control-lg"
+                    placeholder="Article Title"
+                  />
                 </fieldset>
                 <fieldset className="form-group">
-                  <input type="text" className="form-control" placeholder="What's this article about?" />
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="What's this article about?"
+                  />
                 </fieldset>
                 <fieldset className="form-group">
                   <textarea
@@ -26,12 +34,22 @@ const Editor = memo(() => {
                   ></textarea>
                 </fieldset>
                 <fieldset className="form-group">
-                  <input type="text" className="form-control" placeholder="Enter tags" />
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Enter tags"
+                  />
                   <div className="tag-list">
-                    <span className="tag-default tag-pill"> <i className="ion-close-round"></i> tag </span>
+                    <span className="tag-default tag-pill">
+                      {" "}
+                      <i className="ion-close-round"></i> tag{" "}
+                    </span>
                   </div>
                 </fieldset>
-                <button className="btn btn-lg pull-xs-right btn-primary" type="button">
+                <button
+                  className="btn btn-lg pull-xs-right btn-primary"
+                  type="button"
+                >
                   Publish Article
                 </button>
               </fieldset>

@@ -1,14 +1,14 @@
-import request from '@/utils/request.js';
+import request from "@/utils/request.js";
 
-export const getArticles = params => {
-  return request.get('/articles', {
-    params
+export const getArticles = (params) => {
+  return request.get("/articles", {
+    params,
   });
 };
 
 export function getFeedArticles(params) {
-  return request.get('/articles/feed', {
-    params
+  return request.get("/articles/feed", {
+    params,
   });
 }
 
@@ -18,7 +18,7 @@ export function getArticle(slug) {
 
 export function createArticle(article) {
   return request.post(`/articles`, {
-    article
+    article,
   });
 }
 
@@ -28,6 +28,6 @@ export function deleteArticle(slug) {
 
 export function updateArticle(slug, article) {
   return request.put(`/articles/${slug}`, {
-    article
+    article,
   });
 }

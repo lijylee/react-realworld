@@ -1,9 +1,9 @@
-import request from '@/utils/request';
+import request from "@/utils/request";
 
-export const getProfile = username => {
+export const getProfile = (username) => {
   return request({
-    method: 'get',
-    url: `/profiles/${username}`
+    method: "get",
+    url: `/profiles/${username}`,
   });
 };
 
